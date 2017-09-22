@@ -142,7 +142,7 @@
 		 */
 		 
 		 
-	<!-- open a window 예제-------------------------------------------------- -->
+	/* <!-- open a window 예제-------------------------------------------------- -->
 	window.onload = function() {
 		var openButton = document.getElementById("open-button");
 		var movButton = document.getElementById("mov-button");
@@ -183,7 +183,7 @@
 				alert(node.nodeType);
 		};
 	};
-	
+	 */
 	<!-- innerframe 예제-------------------------------------------------- -->
 /* 	window.onload = function() {
 		var navButton = document.getElementById("nav-button");
@@ -232,21 +232,69 @@
 		};
 	}; */
 	
-	<!-- 자식 노드 변경  예제-------------------------------------------------- -->
+	/* <!-- 자식 노드 변경  예제-------------------------------------------------- -->
 	
 	window.onload = function(){
 		var chNodeButton = document.querySelector("#ch-node-button");
-		var chNodeContainer = document.querySelector("#ch-node-container");
+		var container = document.querySelector("#ch-node-container");
 		
 		
 		chNodeButton.onclick = function(){
 			//chNodeContainer.textContent = "<h1>hoho</h1>"; 태그 그대로
-			chNodeContainer.innerHTML = "<h1>hoho</h1>";    //태그는 인식한다.
+			container.innerHTML = "<h1>hoho</h1>";    //태그는 인식한다.
+		};
+	}; */
+	
+	<!-- 텍스트 노드 추가  예제-------------------------------------------------- -->
+	
+	window.onload = function(){
+		var addTextNodeButton = document.querySelector("#add-text-node-button");
+		var addImgNodeButton = document.querySelector("#add-img-node-button");
+		var removeNodeButton = document.querySelector("#remove-node-button");
+		var container = document.querySelector("#node-container");
+		
+		
+		addTextNodeButton.onclick = function(){
+			//1. TextNode 생성
+			var txt = document.createTextNode("안녕하세요.");
+			
+			//2. container(부모)를 얻기			
+			
+			//3, 부모에 자식을 추가
+			container.appendChild(txt);
+
+		};
+		
+		addImgNodeButton.onclick = function(){
+			//how1
+			/* var img = document.createElement("img");
+			img.src = "https://img-wishbeen.akamaized.net/plan/1437707646107_4.png";
+			
+			container.appendChild(img); */
+			
+			//how2 간단하지만 성능면에서는 아주 좋지않다.
+			container.innerHTML += '<img src="https://img-wishbeen.akamaized.net/plan/1437707646107_4.png">';
+		};
+		
+		removeNodeButton.onclick = function(){
+			// 1. 자동으로 맨 마지막 노드부터 삭제
+			// 2. 원하는 노드를 선택해서 삭제
 		};
 	};
 </script>
 </head>
 <body>
+	<!-- 텍스트 노드 추가 예제-------------------------------------------------- -->
+	<input id="add-text-node-button" type="button" value="텍스트 노드 추가"/>
+	<input id="add-img-node-button" type="button" value="이미지 노드 추가"/>
+	<input id="remove-node-button" type="button" value="노드 삭제"/>
+	<div id="node-container">
+		
+	</div>
+	
+	<hr/>
+
+
 	<!-- 자식 노드 변경 예제-------------------------------------------------- -->
 	<input id="ch-node-button" type="button" value="자식노드 변경"/>
 	<div id="ch-node-container">
