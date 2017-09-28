@@ -32,8 +32,8 @@ public class SpringNoticeDao implements NoticeDao {
 		
 		String sql = "SELECT * FROM NoticeView WHERE id=?";
 		
-		JdbcTemplate jdbcTemplete = new JdbcTemplate();
-		jdbcTemplete.queryForObject(sql, requiredType);
+		//JdbcTemplate jdbcTemplete = new JdbcTemplate();
+		//jdbcTemplete.queryForObject(sql, requiredType);
 		
 		return null;
 	}
@@ -42,6 +42,24 @@ public class SpringNoticeDao implements NoticeDao {
 	public int update(String id, String title, String content) {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+	@Override
+	public List<NoticeView> getList(int page, String field, String query) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public NoticeView getPrev(String id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public NoticeView getNext(String id) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
