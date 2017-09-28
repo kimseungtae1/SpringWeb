@@ -298,7 +298,7 @@
 	
 	<!-- 노드 바꾸기 예제-------------------------------------------------- -->
 	
-	window.onload = function(){
+	window.addEventListener("load", function() {
 		var swapNodeButton = document.querySelector("#swap-node-button");
 		var container = document.querySelector("#node-swap-container");
 		
@@ -313,10 +313,78 @@
 			var oldNode = container.replaceChild(node1, node3);
 			container.insertBefore(node3, nodeNext);
 		};
-	};
+	});
+	
+	/*----노드 바꾸기 예제2----------*/
+	window.addEventListener("load", function(e) { //함수를 누적하는 방식
+		var moveUpButton = document.querySelector("#move-up-button");
+		var container = document.querySelector("#move-up-container");
+		var tbody = container.querySelector("tbody");
+		//var td = tbody.querySelector("tr:first-child td:last-child");
+		var td = tbody.firstElementChild.lastElementChild;
+		
+		td.addEventListner("click", function(e){
+			
+			e.stopPropagation();  //버블링 되는 것을 막기
+			console.log("td");	
+			e.target.style.background ="yellow";
+		}, true);
+		/*		
+		var trs = container.querySelectorAll("tbody tr");
+ 	 	for(var i;i<trs.length;i++){
+			trs[i].onclick=function(e){
+				e.target.style.background ="pink";
+
+			}
+		}  */
+		
+		tbody.addEventListner("click", function(e){
+			//alert("tbody");
+			console.log("tbody");
+			e.target.style.background ="green";
+			//e.target.parentNode.style.background = "pink";
+		},true);
+
+
+		moveUpButton.onclick = function() {
+			
+
+		};
+
+	});
+
 </script>
 </head>
 <body>
+	<!-- 노드 바꾸기  예제2------------------>
+	<!--이벤트라~~~~... ㅠㅡㅜ   -->
+	<input id="move-up-button" type="button" value="위로 옮기기 " />
+	<table border="1px" id="move-up-container">
+		<thead>
+			<tr>
+				<td>코드</td>
+				<td>제목</td>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>1</td>
+				<td>졸려유~~</td>
+			</tr>
+			<tr>
+				<td>2</td>
+				<td>그래유~~</td>
+			</tr>
+		</tbody>
+	</table>
+	<div >
+		<img src="../images/answeris.png"><img src="../images/w3c.png"><img src="../images/wikibook.png">
+	</div>
+
+	<hr />
+	
+
+
 	<!-- 노드 바꾸기 예제-------------------------------------------------- -->
 	<input id="swap-node-button" type="button" value="노드 바꾸기"/>
 	<div id="node-swap-container">
