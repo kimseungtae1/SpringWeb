@@ -318,12 +318,13 @@
 	/*----노드 바꾸기 예제2----------*/
 	window.addEventListener("load", function(e) { //함수를 누적하는 방식
 		var moveUpButton = document.querySelector("#move-up-button");
+		var radiobutton
 		var container = document.querySelector("#move-up-container");
 		var tbody = container.querySelector("tbody");
 		//var td = tbody.querySelector("tr:first-child td:last-child");
 		var td = tbody.firstElementChild.lastElementChild;
 		
-		td.addEventListner("click", function(e){
+		td.addEventListener("click", function(e){
 			
 			e.stopPropagation();  //버블링 되는 것을 막기
 			console.log("td");	
@@ -338,7 +339,7 @@
 			}
 		}  */
 		
-		tbody.addEventListner("click", function(e){
+		tbody.addEventListener("click", function(e){
 			//alert("tbody");
 			console.log("tbody");
 			e.target.style.background ="green";
@@ -353,10 +354,38 @@
 
 	});
 
+	window.addEventListener("load", function(){
+		var titleText = document.querySelector("form input[name]");
+		var submitButton = document.querySelector('form input[type="submit"]');
+		var cancelButton = document.querySelector("form a");
+		
+		submitButton.onclick = function(e){
+			if(titleText.value == ""){
+				alert("제목을 입력하세요.");
+				e.preventDefault();
+			}
+		}
+		
+		cancelButton.onclick = function(e){
+			if(titleText.value != ""){
+				if(!confirm("작성중이던 입력을 취소하시겠습니까?"))
+					e.preventDefault();
+			}
+		}
+	});
 </script>
 </head>
 <body>
-	<!-- 노드 바꾸기  예제2------------------>
+	<!-- 기본 행위 막기  예제------------------>
+	<form>
+		<input type="text" name="title"/><br/>
+		<input type="submit" value="전송"/>
+		<a href="">취소</a>
+		
+	</form>
+	<hr />
+	
+	<!-- 노드 바꾸기  예제2 + 이벤트 심화 : 버블링과 캡쳐링------------------>
 	<!--이벤트라~~~~... ㅠㅡㅜ   -->
 	<input id="move-up-button" type="button" value="위로 옮기기 " />
 	<table border="1px" id="move-up-container">
@@ -368,12 +397,29 @@
 		</thead>
 		<tbody>
 			<tr>
+				<td><input name="id" type="radio" value="1"/></td>
 				<td>1</td>
 				<td>졸려유~~</td>
 			</tr>
 			<tr>
+				<td><input name="id" type="radio" value="2"/></td>
 				<td>2</td>
 				<td>그래유~~</td>
+			</tr>
+			<tr>
+				<td><input name="id" type="radio" value="3"/></td>
+				<td>3</td>
+				<td>뭐가 ~ 그래유~~</td>
+			</tr>
+			<tr>
+				<td><input name="id" type="radio" value="4"/></td>
+				<td>4</td>
+				<td>얼마나~ 그래유~~</td>
+			</tr>
+			<tr>
+				<td><input name="id" type="radio" value="5"/></td>
+				<td>5</td>
+				<td>정말루 ~그래유~~</td>
 			</tr>
 		</tbody>
 	</table>

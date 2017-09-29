@@ -47,7 +47,7 @@ public class MyBatisNoticeDao implements NoticeDao {
 	public NoticeView getPrev(String id) {
 
 		NoticeDao noticeDao = sqlSession.getMapper(NoticeDao.class);
-		NoticeView noticeView = noticeDao.get(id);
+		NoticeView noticeView = noticeDao.getPrev(id);
 		
 		return noticeView;
 	}
@@ -56,7 +56,7 @@ public class MyBatisNoticeDao implements NoticeDao {
 	public NoticeView getNext(String id) {
 
 		NoticeDao noticeDao = sqlSession.getMapper(NoticeDao.class);
-		NoticeView noticeView = noticeDao.get(id);
+		NoticeView noticeView = noticeDao.getNext(id);
 		
 		return noticeView;
 	}
