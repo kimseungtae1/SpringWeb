@@ -12,16 +12,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import com.newlecture.webapp.dao.NoticeDao;
+import com.newlecture.webapp.entity.Notice;
 
 @Controller
 @RequestMapping("/admin/board/*")
 public class BoardController {
 
+	//객체는 ioc컨테이너에 있지!
 	@Autowired
 	private NoticeDao noticeDao;
 	
 	@RequestMapping("notice")
-	public String notice(@RequestParam(value="p", defaultValue="1") Integer page,
+	public String notice(
+			@RequestParam(value="p", defaultValue="1") Integer page,
 			@RequestParam(value="f", defaultValue="title") String field, //title을 기본값으로 검색하겠다
 			@RequestParam(value="q", defaultValue="") String query,
 			Model model) {
@@ -54,9 +57,14 @@ public class BoardController {
 			String content) throws UnsupportedEncodingException {
 		
 		//한글 깨질때
-		title = new String(title.getBytes("ISO-8859-1"),"UTF-8");
+		//title = new String(title.getBytes("ISO-8859-1"),"UTF-8");
 		
 		System.out.println(title);
+		
+		String writerId = "newlec";
+		
+		//noticeDao.insert(title, content, writerId);
+		int row = noticeDao.insert(new Notice(title, content, writerId));
 		
 		return "redirect:../notice";
 	}

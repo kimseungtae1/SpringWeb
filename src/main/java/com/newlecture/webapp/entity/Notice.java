@@ -24,7 +24,14 @@ public class Notice {
       this.hit = hit;
    }
 
-   public String getId() {
+   public Notice(String title, String content, String writerId) {
+	   this.title = title;
+	   this.content = content;
+	   this.writerId = writerId;
+   }
+
+
+public String getId() {
       return id;
    }
    public void setId(String id) {

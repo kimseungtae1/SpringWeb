@@ -3,6 +3,8 @@ package com.newlecture.webapp.dao;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
+
+import com.newlecture.webapp.entity.Notice;
 import com.newlecture.webapp.entity.NoticeView;
 
 public interface NoticeDao {
@@ -15,6 +17,8 @@ public interface NoticeDao {
 	
 	NoticeView getPrev(String id);
 	NoticeView getNext(String id);
-	List<NoticeView> getList(int page, String query);
+	
+	void insert(String title, String content, String writerId);
+	int insert(Notice notice);
 
 }
