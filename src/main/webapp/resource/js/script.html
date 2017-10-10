@@ -339,7 +339,16 @@
 			}
 		}  */
 		
+		var tr = null;
+		
 		tbody.addEventListener("click", function(e){
+			
+			if(e.target.nodeName == "INPUT"){
+				//alert("라디오 버튼 클릭");
+				tr = e.target.parentNode.parentNode;
+			}
+			
+		
 			//alert("tbody");
 			console.log("tbody");
 			e.target.style.background ="green";
@@ -348,12 +357,27 @@
 
 
 		moveUpButton.onclick = function() {
+
+			if(tr == null)
+				return;
 			
+			var container = tr.parentNode;
+			
+			var bf = tr.previousElementSibling;
+			var af = tr.nextElementSibling;
+				
+			if(bf == null || af == null)
+				e.preventDefault();
+			else{
+				container.replaceChild(tr, bf);
+				container.insertBefore(bf, af);
+			}
 
 		};
 
 	});
 
+	<!-- 기본 행위 막기  예제------------------>
 	window.addEventListener("load", function(){
 		var titleText = document.querySelector("form input[name]");
 		var submitButton = document.querySelector('form input[type="submit"]');
@@ -423,9 +447,6 @@
 			</tr>
 		</tbody>
 	</table>
-	<div >
-		<img src="../images/answeris.png"><img src="../images/w3c.png"><img src="../images/wikibook.png">
-	</div>
 
 	<hr />
 	
