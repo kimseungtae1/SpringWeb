@@ -75,4 +75,10 @@ public class MyBatisNoticeDao implements NoticeDao {
 		
 	}
 
+	@Override
+	public String getNextId() {
+		NoticeDao noticeDao = sqlSession.getMapper(NoticeDao.class);
+		return noticeDao.getNextId();
+	}
+
 }
