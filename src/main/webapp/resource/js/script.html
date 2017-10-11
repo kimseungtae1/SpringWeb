@@ -397,9 +397,98 @@
 			}
 		}
 	});
+	
+	<!-- 노드복제 예제------------------>
+	window.addEventListener("load", function(){
+		var cloneButton = document.querySelector("#ex-clone input[value='단순복제']");
+		var tbody = document.querySelector("#ex-clone tbody");
+		
+		cloneButton.onclick = function(e){
+			var tr = tbody.querySelector("tr");
+			
+			var clone = tr.cloneNode(true);
+			tbody.appendChild(clone);	
+			
+		};
+		
+	});
+	
+	<!-- 템플릿 태그를 이용한 노드복제 예제------------------>
+	<!-- 지원을 하지않는 브라우져도 있기 때문에 조건검사가 먼저 들어가자! -->
+	window.addEventListener("load", function(){
+		var cloneButton = document.querySelector("#ex2-clone input[value='단순복제']");
+		var tbody = document.querySelector("#ex2-clone tbody");
+		var template = document.querySelector("#ex2-clone template");
+		
+		cloneButton.onclick = function(e){
+			
+			// 현재 브라우저가 template 태그를 지원하는지에 대한 확인
+			if('content' in template){
+				alert("aAa");
+			}
+		};
+		
+	});
+	
+	
 </script>
 </head>
 <body>
+	<!-- 템플릿 태그를 이용한 노드복제 예제------------------>
+	<div id="ex2-clone">	
+		<div>
+			<input type="button" value="단순복제"/>
+		</div>
+		<div id="clone-container">
+			<table border="1">
+				<thead>
+					<tr>
+						<td>코드</td>
+						<td>제목</td>
+					</tr>
+				</thead>
+				<tbody>
+					
+				</tbody>
+			</table>
+			
+			<template>
+				<tr>
+					<td><input name="id" type="radio" value="1"/></td>
+					<td>1</td>
+					<td>졸려유~~</td>
+				</tr>
+			</template>
+		</div>
+	</div>
+	<hr />
+
+
+	<!-- 노드복제 예제------------------>
+	<div id="ex-clone">	
+		<div>
+			<input type="button" value="단순복제"/>
+		</div>
+		<div id="clone-container">
+			<table border="1">
+				<thead>
+					<tr>
+						<td>코드</td>
+						<td>제목</td>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td><input name="id" type="radio" value="1"/></td>
+						<td>1</td>
+						<td>졸려유~~</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<hr />
+
 	<!-- 기본 행위 막기  예제------------------>
 	<form>
 		<input type="text" name="title"/><br/>
@@ -412,7 +501,7 @@
 	<!-- 노드 바꾸기  예제2 + 이벤트 심화 : 버블링과 캡쳐링------------------>
 	<!--이벤트라~~~~... ㅠㅡㅜ   -->
 	<input id="move-up-button" type="button" value="위로 옮기기 " />
-	<table border="1px" id="move-up-container">
+	<table border="1" id="move-up-container">
 		<thead>
 			<tr>
 				<td>코드</td>
