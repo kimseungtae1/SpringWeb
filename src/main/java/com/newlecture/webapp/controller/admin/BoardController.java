@@ -2,6 +2,7 @@ package com.newlecture.webapp.controller.admin;
 
 
 
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -25,7 +26,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.newlecture.webapp.dao.NoticeDao;
+import com.newlecture.webapp.dao.NoticeFileDao;
 import com.newlecture.webapp.entity.Notice;
+import com.newlecture.webapp.entity.NoticeFile;
 
 @Controller
 @RequestMapping("/admin/board/*")
@@ -34,6 +37,9 @@ public class BoardController {
 	//객체는 ioc컨테이너에 있지!
 	@Autowired
 	private NoticeDao noticeDao;
+	
+	@Autowired
+	private NoticeFileDao noticeFileDao;
 	
 	@RequestMapping("notice")
 	public String notice(
@@ -95,23 +101,39 @@ public class BoardController {
 				
 		ServletContext ctx = request.getServletContext();
 		/*String path = ctx.getRealPath("/resource/customer/notice/" + year + "/" + nextId); //year의 묵시적인 형변환 ( 정수형 -> 문자형 )*/
-		String path = ctx.getRealPath(String.format("/resource/customer/notice/%d/%s", year, nextId));		
+		String path = ctx.getRealPath(String.format("/resource/customer/notice/%s/%s", year, nextId));		
 		System.out.println(path);
 		
 		File f = new File(path); //연도별 폴더생성을 위한 파일객체 생성
 		
-		if(f.exists()) {
+		if(!f.exists()) {
 			if(!f.mkdirs()) //mkdirs() -> 폴더를 만들어라
 				System.out.println("디렉토리를 생성할 수가 없습니다.");
 		}
+
+		// 경로명에 파일명 추가해주기
+		// 경로를 확인해보면 현재는 윈도우라서 구분자가 \지만 아래는 /를 넣어주었다...
+		// 하지만 윈도우가 아니라 리눅스등등은 다 다르기 때문에 구분자를 모든곳에서 인식할수 있는 것으로 해줘야한다.. 구분자를 제공해준다. => File.separator
+		path += File.separator + file.getOriginalFilename();
+		File f2 = new File(path); //여기가 실행되면 파일은 0키로바이트짜리로 만들어진다
 		
-		f.mkdirs();
 		
 		InputStream fis = file.getInputStream();
-		OutputStream fos = new FileOutputStream(f);
+		OutputStream fos = new FileOutputStream(f2);
+		
+		byte[] buf = new byte[1024];
+		
+		int size = 0;
+		while((size = fis.read(buf)) > 0)
+			fos.write(buf, 0, size);
 		
 		
-		/*
+		fis.close();
+		fos.close();
+		
+		
+		
+		
 		//file.getInputStream();
 		String fileName = file.getOriginalFilename(); //db연동하기전에 파일이 넘어오는지 확인해야한다.
 		System.out.println(fileName);
@@ -125,7 +147,8 @@ public class BoardController {
 		notice.setWriterId("newlec");
 		//int row = noticeDao.insert(new Notice(title, content, writerId));
 		int row = noticeDao.insert(notice);
-		*/
+		noticeFileDao.insert(new NoticeFile(null, fileName, nextId)); //id, src, noticeId
+		
 		return "redirect:../notice";
 	}
 }
