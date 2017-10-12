@@ -420,16 +420,53 @@
 		var tbody = document.querySelector("#ex2-clone tbody");
 		var template = document.querySelector("#ex2-clone template");
 		
+		var data = [
+			{id:"1", title:"hihihi~", writerId:"newlec"},
+			{id:"2", title:"hohoho~~", writerId:"lecnew"},
+			{id:"3", title:"hhhhhh~~~", writerId:"lewnewnew"}
+		];
+		
+		
 		cloneButton.onclick = function(e){
-			
+			/* 
 			// 현재 브라우저가 template 태그를 지원하는지에 대한 확인
 			if('content' in template){
-				alert("aAa");
+				//alert("aAa");
+				//누적해야 할 경우
+				var tds = template.content.querySelectorAll("td");
+				tds[0].appendChild(document.createTextNode("1"));	//같은방법
+				tds[1].textContent = "test title";					//같은방법
+				tds[2].textContent = "newlec";
+				
+				//값이 설정된 content를 복제
+				var clone = document.importNode(template.content, true);
+				
+				//복제된 clone(tr)을 노드 트리에 추가
+				template.appendChild(clone);
+				 */
+				 
+			// 현재 브라우저가 template 태그를 지원하는지에 대한 확인
+			if('content' in template){
+				//alert("aAa");
+				
+				for(var i=0; i<data.length; i++){
+					//복제를 한 후에 content를 설정하는 경우(새롭게 덮어씌울경우)
+					var clone = document.importNode(template.content, true);
+					var tds = clone.querySelectorAll("td");
+					tds[0].textContent = data[i].id;			//json표기법
+					tds[1].textContent = data[i].title;					
+					tds[2].textContent = data[i].writerId;
+				
+				
+				
+				//복제된 clone(tr)을 노드 트리에 추가
+					tbody.appendChild(clone);
+				}
+
 			}
 		};
 		
 	});
-	
 	
 </script>
 </head>
@@ -455,8 +492,8 @@
 			<template>
 				<tr>
 					<td><input name="id" type="radio" value="1"/></td>
-					<td>1</td>
-					<td>졸려유~~</td>
+					<td></td>
+					<td></td>
 				</tr>
 			</template>
 		</div>
