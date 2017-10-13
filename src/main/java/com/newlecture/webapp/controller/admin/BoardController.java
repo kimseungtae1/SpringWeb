@@ -76,7 +76,7 @@ public class BoardController {
 			String content) throws UnsupportedEncodingException {*/
 	public String noticeReg(
 			Notice notice,
-			MultipartFile file,
+			MultipartFile file, //name="file"인 녀석이 2개 이상이 될 경우... []을 이용한다.
 			HttpServletRequest request) throws IOException {
 		
 		//현재날짜얻기 - 디렉토리관리를 년도별로 하기 위해
