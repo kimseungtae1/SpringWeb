@@ -4,7 +4,7 @@ public class NewlecCalculator implements Calculator {
 
 	@Override
 	public int add(int x, int y) {
-		//System.out.println("주업무로직시작전");
+		//System.out.println("주업무 로직 시작전");
 		int result = x + y;
 		return result;
 	}
