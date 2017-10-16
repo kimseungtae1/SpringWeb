@@ -4,10 +4,14 @@ import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+
 public class Program {
 
 	public static void main(String[] args) {
-		
+		/*
 		Calculator origin = new NewlecCalculator();
 		
 		//일일이 모든 주업무(함수)에 직접 꽂아넣지 않으려면,,
@@ -28,9 +32,14 @@ public class Program {
 						
 						return result;
 					}
-				});
+				});*/
+		
+		ApplicationContext context = new ClassPathXmlApplicationContext("com/newlecture/aop/spring/aop-context.xml");
+		
+		Calculator cal = (Calculator) context.getBean("cal");
 		
 		int data = cal.add(3, 4);
+		data = cal.div(6, 1);
 		
 		System.out.println(data);
 	}
