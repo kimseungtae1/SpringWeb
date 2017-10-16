@@ -428,7 +428,26 @@
 		];
 		
 		ajaxButton.onclick = function(e){
-			var xhr = new XmpHttpRequest(); //모든 브라우져에 호환되는 기능
+			
+			
+			/* 1. 동기형으로 문서를 요청한 방식 , 느리다!*/
+			/* var xhr = new XMLHttpRequest(); //모든 브라우져에 호환되는 기능
+			xhr.open("GET", "../../customer/notice-ajax", false);//주소창에 url 입력해준다. "GET방식", "상대경로", "동기냐 비동기냐"
+			xhr.send();//입력한 url를 전송해준다.
+			data = eval(xhr.responseText); //받아온 데이터를 객체에 넣어주기!
+			 */
+			 
+			/* 2. 비동기형으로 문서를 요청한 방식 ,빠르지만 순서가 뒤죽박죽된다. 따라서 사건이 일어나는 시점을 신경써야한다.*/
+			var xhr = new XMLHttpRequest(); 
+			xhr.onreadystatechange = function(e){
+				
+				if(xhr.readyState == 4) //4번, 로딩될때의 시점을 설정해주는것이다.
+					data = eval(xhr.responseText); 
+					
+			};
+			xhr.open("GET", "../../customer/notice-ajax", true);
+			xhr.send();
+			
 		};
 		
 		cloneButton.onclick = function(e){
