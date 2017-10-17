@@ -420,6 +420,8 @@
 		var ajaxButton = document.querySelector("#ex2-clone input[value='Ajax요청']");
 		var tbody = document.querySelector("#ex2-clone tbody");
 		var template = document.querySelector("#ex2-clone template");
+		var container = document.querySelector("#ex2-clone div:first-Child");
+		
 		
 		var data = [
 			{id:"1", title:"hihihi~", writerId:"newlec"},
@@ -428,7 +430,6 @@
 		];
 		
 		ajaxButton.onclick = function(e){
-			
 			
 			/* 1. 동기형으로 문서를 요청한 방식 , 느리다!*/
 			/* var xhr = new XMLHttpRequest(); //모든 브라우져에 호환되는 기능
@@ -439,14 +440,27 @@
 			 
 			/* 2. 비동기형으로 문서를 요청한 방식 ,빠르지만 순서가 뒤죽박죽된다. 따라서 사건이 일어나는 시점을 신경써야한다.*/
 			var xhr = new XMLHttpRequest(); 
-			xhr.onreadystatechange = function(e){
-				
+			/* xhr.onreadystatechange = function(e){
 				if(xhr.readyState == 4) //4번, 로딩될때의 시점을 설정해주는것이다.
-					data = eval(xhr.responseText); 
-					
+					data = eval(xhr.responseText); 	
+			}; */
+			xhr.onload = function(){
+				data = JSON.parse(xhr.responseText);
+				// 2. ajax icon제거
+				container.removeChild(container.lastChild);
 			};
+			
+			xhr.onerror = function(e){
+				alert("예기치 못한 오류가 생겼습니다.")
+			};
+			
 			xhr.open("GET", "../../customer/notice-ajax", true);
 			xhr.send();
+			
+			//1. ajax icon 추가
+			var img = document.createElement("img");
+			img.src = "../images/ajax-loader.gif";
+			container.appendChild(img);
 			
 		};
 		
