@@ -508,13 +508,32 @@
 		
 	});
 	
+	
+	<!-- Ajax로 파일 전송하기 & trigger------------------>
+	window.addEventListener("load", function(){
+		var fileInput = document.querySelector("#ex3-upload input");
+		var submitButton = document.querySelector("#ex3-upload span");
+		
+		submitButton.onclick = function(e){
+			var event = new MouseEvent("click", {
+					'view' : window,
+					'bubbles' : true,
+					'cancelbale' : true
+			});
+				
+			fileInput.dispatchEvent(event);
+		};
+	});
+	
 </script>
 </head>
 <body>
 
 	<!-- Ajax로 파일 전송하기 & trigger------------------>
-	<div id="ex3-upload">	
-		<form action="../../upload" method="post" enctype="multipart/form-data">
+	<div id="ex3-upload">
+	<input type="file" style="display: none;"/>	
+	<span style="border:1px solid #999; border-radius:5px; background: pink; padding:3px; cursor: pointer;">업로드</span>
+		<%-- <form action="../../upload?${_csrf.parameterName}=${_csrf.token}" method="post" enctype="multipart/form-data">
 			<div>
 				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 				<input type="submit" value="전송" />
@@ -534,7 +553,7 @@
 					</tbody>
 				</table>
 			</div>
-		</form>
+		</form> --%>
 	</div>
 	<hr />
 
