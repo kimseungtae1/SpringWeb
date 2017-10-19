@@ -31,6 +31,7 @@ public class CustomerController {
 		Model model) {
 
 		model.addAttribute("list", noticeDao.getList(page, field, query));
+		model.addAttribute("count", noticeDao.getCount());
 		
 		/*
 		String output = String.format("p:%s, q:%s\n", page, query);
@@ -79,8 +80,8 @@ public class CustomerController {
 	public String noticeDetail(@PathVariable("id") String id, Model model) {
 		
 		model.addAttribute("n", noticeDao.get(id));
-		model.addAttribute("prev", noticeDao.getPrev(id));
-		model.addAttribute("next", noticeDao.getNext(id));
+		//model.addAttribute("prev", noticeDao.getPrev(id));
+		//model.addAttribute("next", noticeDao.getNext(id));
 		
 		//return "customer/notice-detail";
 		return "customer.notice.detail";
