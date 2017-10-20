@@ -521,7 +521,38 @@
 					'cancelbale' : true
 			});
 				
+			
 			fileInput.dispatchEvent(event);
+			fileInput.onchange = function(){
+				
+				var file = fileInput.files[0];
+				//alert(file.name);
+				var formData = new FormData();
+				formData.append("title", "테스트");
+				formData.append("file", file);
+				
+				var xhr = new XMLHttpRequest(); 
+				xhr.upload.onprogress = function(e){
+					console.log(e.loaded + "/" + e.total);
+				};
+				
+				xhr.onload = function(){
+					
+				};
+				xhr.onerror = function(e){
+					alert("예기치 못한 오류가 생겼습니다.")
+				};
+				
+				xhr.open("POST", "../../upload?${_csrf.parameterName}=${_csrf.token}", true);
+				xhr.send(formData);
+
+				/* for(var key in fileInput.files[0])		//속성들 알아보는 방법
+					alert(key);	 */
+			};
+			
+			//alert("aa");
+			
+			
 		};
 	});
 	
