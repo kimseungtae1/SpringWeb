@@ -164,4 +164,41 @@ public class BoardController {
 		
 		return "redirect:../notice";
 	}
+	/*
+	@RequestMapping(value="notice/edit", method=RequestMethod.GET)
+	public String noticeEdit() {
+		
+		return "admin.board.notice.edit";
+	}
+	
+	@RequestMapping(value="notice-edit", method=RequestMethod.POST)
+	public String noticeEdit2(String id, ){
+		
+		
+		
+		return "admin.board.notice.detail";
+	}
+	*/
+	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

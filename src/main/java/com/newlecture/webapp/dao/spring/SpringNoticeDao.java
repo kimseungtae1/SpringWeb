@@ -123,22 +123,29 @@ public class SpringNoticeDao implements NoticeDao {
 	@Override
 	public NoticeView getPrev(String id) {
 
-		/*String sql = "select * from NoticeView where id &lt; CAST(#{id} AS UNSIGNED) order by regDate desc limit 1";
+		String sql = "select * from NoticeView where id < CAST(? AS UNSIGNED) order by regDate desc limit 1";
 		
 		NoticeView notice = template.queryForObject(
 				sql, 
 				new Object[] {id},
 				BeanPropertyRowMapper.newInstance(NoticeView.class));
 		
-		return notice;*/
-		
-		return null;
+		return notice;
+
 	}
 
 	@Override
 	public NoticeView getNext(String id) {
-		// TODO Auto-generated method stub
-		return null;
+
+		String sql = "select * from NoticeView where id > CAST(? AS UNSIGNED) order by regDate asc limit 1";
+		
+		NoticeView notice = template.queryForObject(
+				sql, 
+				new Object[] {id},
+				BeanPropertyRowMapper.newInstance(NoticeView.class));
+		
+		return notice;
+
 	}
 
 	@Override
