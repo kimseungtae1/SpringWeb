@@ -1,11 +1,15 @@
 package com.newlecture.webapp.dao.spring;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.support.DaoSupport;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.PreparedStatementSetter;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
@@ -15,12 +19,14 @@ import com.newlecture.webapp.entity.NoticeView;
 
 public class SpringNoticeDao implements NoticeDao {
 	
+	@Autowired
 	private JdbcTemplate template;
 	
+	/*@Autowired
 	public void setTemplate(JdbcTemplate template) {
 		this.template = template;
-	}
-
+	}*/
+	
 	@Override
 	public List<NoticeView> getList(int page, String field, String query) {
 
@@ -90,13 +96,42 @@ public class SpringNoticeDao implements NoticeDao {
 
 	@Override
 	public int update(String id, String title, String content) {
-		// TODO Auto-generated method stub
-		return 0;
+	
+		String sql = "update Notice set title=?, content=? where id=?";
+		
+		int result = template.update(sql
+				, title
+				, content
+				, id);
+		
+		//직접 하려면? 거의 쓸일은 없다. 혹시나 위의 방식으로 못쓰는경우에..
+		/*int result = template.update(sql, new PreparedStatementSetter() {
+
+			@Override
+			public void setValues(PreparedStatement st) throws SQLException {
+				st.setString(1, title);
+				st.setString(2, content);
+				st.setString(3, id);
+				
+			}
+			
+		});*/
+				
+		return result;
 	}
 
 	@Override
 	public NoticeView getPrev(String id) {
-		// TODO Auto-generated method stub
+
+		/*String sql = "select * from NoticeView where id &lt; CAST(#{id} AS UNSIGNED) order by regDate desc limit 1";
+		
+		NoticeView notice = template.queryForObject(
+				sql, 
+				new Object[] {id},
+				BeanPropertyRowMapper.newInstance(NoticeView.class));
+		
+		return notice;*/
+		
 		return null;
 	}
 
@@ -107,21 +142,36 @@ public class SpringNoticeDao implements NoticeDao {
 	}
 
 	@Override
-	public void insert(String title, String content, String writerId) {
-		// TODO Auto-generated method stub
+	public int insert(String title, String content, String writerId) {
+		
+		return insert(new Notice(title, content, writerId));
 
 	}
 
 	@Override
 	public int insert(Notice notice) {
-		// TODO Auto-generated method stub
-		return 0;
+
+		String sql = "insert into Notice(id, title, content, writerId) values(?, ?, ?, ?)";
+		
+		int result = template.update(sql
+				, getNextId()		//서브쿼리를 이용하기 위한 메서드
+				, notice.getTitle()
+				, notice.getContent()
+				, notice.getWriterId());
+				
+		return result;
 	}
 
 	@Override
 	public String getNextId() {
-		// TODO Auto-generated method stub
-		return null;
+
+		String sql = "select ifnull(max(cast(id as unsigned)),0) + 1 from Notice";
+		
+		String result = template.queryForObject(
+				sql,
+				String.class);
+		
+		return result;
 	}
 
 }

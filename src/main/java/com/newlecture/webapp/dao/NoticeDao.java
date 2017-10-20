@@ -18,7 +18,7 @@ public interface NoticeDao {
 	NoticeView getPrev(String id);
 	NoticeView getNext(String id);
 	
-	void insert(String title, String content, String writerId);
+	int insert(String title, String content, String writerId);
 	int insert(Notice notice);
 	String getNextId();
 

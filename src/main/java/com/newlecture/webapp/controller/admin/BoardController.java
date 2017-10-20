@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
+import java.security.Principal;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -25,6 +26,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.newlecture.webapp.dao.MemberDao;
 import com.newlecture.webapp.dao.NoticeDao;
 import com.newlecture.webapp.dao.NoticeFileDao;
 import com.newlecture.webapp.entity.Notice;
@@ -40,6 +42,9 @@ public class BoardController {
 	
 	@Autowired
 	private NoticeFileDao noticeFileDao;
+	
+	@Autowired
+	private MemberDao memberDao;
 	
 	@RequestMapping("notice")
 	public String notice(
@@ -77,7 +82,12 @@ public class BoardController {
 	public String noticeReg(
 			Notice notice,
 			MultipartFile file, //name="file"인 녀석이 2개 이상이 될 경우... []을 이용한다.
-			HttpServletRequest request) throws IOException {
+			HttpServletRequest request,
+			Principal principal) throws IOException { //principal : 현재 사용자의 정보를 가져다준다.
+		
+		//file객체는 전달이 되었더라도 파일첨부를 안해서 값이 null일경우의 처리(조건처리해주자)
+		//file.isEmpty();
+		
 		
 		//현재날짜얻기 - 디렉토리관리를 년도별로 하기 위해
 		// 날짜얻는방법1
@@ -146,8 +156,11 @@ public class BoardController {
 		String writerId = "newlec";
 		notice.setWriterId("newlec");
 		//int row = noticeDao.insert(new Notice(title, content, writerId));
-		int row = noticeDao.insert(notice);
-		noticeFileDao.insert(new NoticeFile(null, fileName, nextId)); //id, src, noticeId
+
+		int row = noticeDao.insert(notice); //게시글 등록하고,,, 사용자의 이름을 가져오는것이 하나의 트랜잭션으로 묶어야 한다!!
+		memberDao.pointUp(principal.getName()); //사용자의 이름을 가져왔다! => 트랜잭션 처리 때문
+		
+		//noticeFileDao.insert(new NoticeFile(null, fileName, nextId)); //id, src, noticeId
 		
 		return "redirect:../notice";
 	}
