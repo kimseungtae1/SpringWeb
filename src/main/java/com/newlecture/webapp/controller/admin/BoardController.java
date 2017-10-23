@@ -172,7 +172,7 @@ public class BoardController {
 	}
 	
 	@RequestMapping(value="notice-edit", method=RequestMethod.POST)
-	public String noticeEdit2(String id, ){
+	public String noticeEdit2(String id ){
 		
 		
 		
