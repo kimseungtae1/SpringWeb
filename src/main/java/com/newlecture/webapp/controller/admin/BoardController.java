@@ -165,19 +165,21 @@ public class BoardController {
 		
 		return "redirect:../notice";
 	}
-	/*
-	@RequestMapping("notice/edit")
+	
+	/*@RequestMapping(value="notice/edit", method=RequestMethod.GET)
 	public String noticeEdit(
-			Notice notice,
+			String id,
+			String title,
+			String content,
 			MultipartFile file, //name="file"인 녀석이 2개 이상이 될 경우... []을 이용한다.
 			HttpServletRequest request,
 			Principal principal) {
 		
-		System.out.println(notice.getId());
-		System.out.println(notice.getTitle());
-		System.out.println(notice.getContent());
-		System.out.println(notice.getHit());
-		System.out.println(notice.getWriterId());
+		System.out.println(id);
+		System.out.println(title);
+		System.out.println(content);
+		
+		int result = noticeDao.update(notice);
 		
 		return "admin.board.notice.edit";
 	}*/

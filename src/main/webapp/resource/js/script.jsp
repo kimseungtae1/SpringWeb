@@ -513,6 +513,8 @@
 	window.addEventListener("load", function(){
 		var fileInput = document.querySelector("#ex3-upload input");
 		var submitButton = document.querySelector("#ex3-upload span");
+		var progressBar = document.querySelector("#ex3-upload #progress-bar");
+		progressBar.style.width = "0px";
 		
 		submitButton.onclick = function(e){
 			var event = new MouseEvent("click", {
@@ -533,8 +535,13 @@
 				
 				var xhr = new XMLHttpRequest(); 
 				xhr.upload.onprogress = function(e){
-					console.log(e.loaded + "/" + e.total);
+					console.log(Math.round(e.loaded / e.total * 100) + "%");
+					
+					var percentage = Math.round(e.loaded / e.total * 100);
+					progressBar.textContent = percentage + "%";
+					progressBar.style.width = percentage*2 + "px";
 				};
+				
 				
 				xhr.onload = function(){
 					
@@ -564,6 +571,7 @@
 	<div id="ex3-upload">
 	<input type="file" style="display: none;"/>	
 	<span style="border:1px solid #999; border-radius:5px; background: pink; padding:3px; cursor: pointer;">업로드</span>
+	<span id="progress-bar" style="background:green; display: inline-block;"></span>
 		<%-- <form action="../../upload?${_csrf.parameterName}=${_csrf.token}" method="post" enctype="multipart/form-data">
 			<div>
 				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
@@ -585,6 +593,12 @@
 				</table>
 			</div>
 		</form> --%>
+		
+	<div>
+		<ul>
+			<li>ajax-icon.g</li>
+		</ul>
+	</div>	
 	</div>
 	<hr />
 

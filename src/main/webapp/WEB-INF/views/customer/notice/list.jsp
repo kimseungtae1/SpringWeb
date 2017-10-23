@@ -33,7 +33,7 @@
 			</div>
 						
 			<div class="notice margin-top">
-				<h3 class="hidden">공지사항 목록 : ${count[0]}${count[1]}${count[2]}</h3>
+				<h3 class="hidden">공지사항 목록 : ${count}</h3>
 				<table class="table">
 					<thead>
 						<tr>
