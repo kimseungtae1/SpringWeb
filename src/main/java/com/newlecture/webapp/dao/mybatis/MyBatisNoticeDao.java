@@ -63,8 +63,8 @@ public class MyBatisNoticeDao implements NoticeDao {
 	}
 
 	@Override
-	public void insert(String title, String content, String writerId) {
-		insert(new Notice(title, content, writerId));
+	public int insert(String title, String content, String writerId) {
+		return insert(new Notice(title, content, writerId));
 		
 	}
 
@@ -73,6 +73,12 @@ public class MyBatisNoticeDao implements NoticeDao {
 		NoticeDao noticeDao = sqlSession.getMapper(NoticeDao.class);
 		return noticeDao.insert(notice);
 		
+	}
+
+	@Override
+	public String getNextId() {
+		NoticeDao noticeDao = sqlSession.getMapper(NoticeDao.class);
+		return noticeDao.getNextId();
 	}
 
 }

@@ -12,6 +12,7 @@ public class Member {
 	private String phone;
 	private String email;
 	private Date regDate;
+	private int point;
 	
 	
 	public Member() {
@@ -108,6 +109,16 @@ public class Member {
 
 	public void setRegDate(Date regDate) {
 		this.regDate = regDate;
+	}
+
+
+	public int getPoint() {
+		return point;
+	}
+
+
+	public void setPoint(int point) {
+		this.point = point;
 	}
 	
 	

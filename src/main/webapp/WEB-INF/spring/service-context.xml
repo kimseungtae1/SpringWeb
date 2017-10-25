@@ -11,6 +11,11 @@
 		<property name="username" value="sist"/>
 		<property name="password" value="cclass"/>
 	</bean>
+	
+	<!-- template을 이용하기 위한 설정 -->
+	<bean name="template" class="org.springframework.jdbc.core.JdbcTemplate">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
 	 
 	 <bean name="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 	 	<property name="dataSource" ref="dataSource"/>
@@ -22,7 +27,12 @@
 	 </bean>
 	 
 	<!-- DAO 객체들 -->
-	<bean class="com.newlecture.webapp.dao.mybatis.MyBatisNoticeDao"/>
+	<bean class="com.newlecture.webapp.dao.spring.SpringMemberDao"/>
+	<bean class="com.newlecture.webapp.dao.spring.SpringNoticeDao">
+		<!-- <property name="template" ref="template" /> -->
+	</bean>
+	<!-- <bean class="com.newlecture.webapp.dao.mybatis.MyBatisNoticeDao"/> -->
+	<bean class="com.newlecture.webapp.dao.mybatis.MybatisNoticeFileDao"/>
 	
 	<context:annotation-config />
 </beans>

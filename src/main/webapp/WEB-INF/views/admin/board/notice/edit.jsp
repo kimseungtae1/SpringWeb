@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 	<h2>수정 페이지</h2>
-	<form action="notice-edit" method="post">
+	<form action="notice-edit?${_csrf.parameterName}=${_csrf.token}" method="post">
 		<fieldset>
 			<legend>공지사항 수정정보 필드</legend>
 			<table border="1">
