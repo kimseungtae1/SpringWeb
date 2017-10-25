@@ -36,4 +36,5 @@
     <put-attribute name="main" value="/WEB-INF/views/{1}/{2}.jsp" />
     <put-attribute name="footer" value="/WEB-INF/views/inc/footer.jsp" />
   </definition>
+  
 </tiles-definitions>

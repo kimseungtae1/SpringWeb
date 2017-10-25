@@ -509,7 +509,7 @@
 	});
 	
 	
-	<!-- Ajax로 파일 전송하기 & trigger와 파일 목록 뷰어------------------>
+	<!-- Ajax로 파일 전송과 trigger와 파일 목록 뷰어------------------>
 	window.addEventListener("load", function(){
 		var fileInput = document.querySelector("#ex3-upload input");
 		var submitButton = document.querySelector("#ex3-upload span");
@@ -534,7 +534,12 @@
 		
 		xhr.open("GET", "../../file-list");
 		xhr.send();
+		////////////
+		 
 		
+		
+		//var a = document.createElement("a");
+	
 		
 		submitButton.onclick = function(e){
 			var event = new MouseEvent("click", {
@@ -587,11 +592,12 @@
 </head>
 <body>
 
-	<!-- Ajax로 파일 전송하기 & trigger와 파일 목록 뷰어------------------>
+	<!-- Ajax로 파일 전송과 trigger와 파일 목록 뷰어------------------>
 	<div id="ex3-upload">
-	<input type="file" style="display: none;"/>	
-	<span style="border:1px solid #999; border-radius:5px; background: pink; padding:3px; cursor: pointer;">업로드</span>
-	<span id="progress-bar" style="background:green; display: inline-block;"></span>
+		<input type="file" style="display: none;" /> <span
+			style="border: 1px solid #999; border-radius: 5px; background: pink; padding: 3px; cursor: pointer;">업로드</span>
+		<span id="progress-bar"
+			style="background: pink; display: inline-block;"></span>
 		<%-- <form action="../../upload?${_csrf.parameterName}=${_csrf.token}" method="post" enctype="multipart/form-data">
 			<div>
 				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
@@ -618,16 +624,16 @@
 			<ul>
 				<li></li>
 			</ul>
-		</div>	
+		</div>
 	</div>
 	<hr />
 
 
 	<!-- 템플릿 태그를 이용한 노드복제 & Ajax 요청 예제------------------>
-	<div id="ex2-clone">	
+	<div id="ex2-clone">
 		<div>
-			<input type="button" value="단순복제"/>
-			<input type="button" value="Ajax요청"/>
+			<input type="button" value="단순복제" /> <input type="button"
+				value="Ajax요청" />
 		</div>
 		<div id="clone-container">
 			<table border="1">
@@ -638,16 +644,16 @@
 					</tr>
 				</thead>
 				<tbody>
-					
+
 				</tbody>
 			</table>
-			
+
 			<template>
-				<tr>
-					<td><input name="id" type="radio" value="1"/></td>
-					<td></td>
-					<td></td>
-				</tr>
+			<tr>
+				<td><input name="id" type="radio" value="1" /></td>
+				<td></td>
+				<td></td>
+			</tr>
 			</template>
 		</div>
 	</div>
@@ -655,9 +661,9 @@
 
 
 	<!-- 노드복제 예제------------------>
-	<div id="ex-clone">	
+	<div id="ex-clone">
 		<div>
-			<input type="button" value="단순복제"/>
+			<input type="button" value="단순복제" />
 		</div>
 		<div id="clone-container">
 			<table border="1">
@@ -669,7 +675,7 @@
 				</thead>
 				<tbody>
 					<tr>
-						<td><input name="id" type="radio" value="1"/></td>
+						<td><input name="id" type="radio" value="1" /></td>
 						<td>1</td>
 						<td>졸려유~~</td>
 					</tr>
@@ -681,13 +687,12 @@
 
 	<!-- 기본 행위 막기  예제------------------>
 	<form>
-		<input type="text" name="title"/><br/>
-		<input type="submit" value="전송"/>
-		<a href="">취소</a>
-		
+		<input type="text" name="title" /><br /> <input type="submit"
+			value="전송" /> <a href="">취소</a>
+
 	</form>
 	<hr />
-	
+
 	<!-- 노드 바꾸기  예제2 + 이벤트 심화 : 버블링과 캡쳐링------------------>
 	<!--이벤트라~~~~... ㅠㅡㅜ   -->
 	<input id="move-up-button" type="button" value="위로 옮기기 " />
@@ -700,27 +705,27 @@
 		</thead>
 		<tbody>
 			<tr>
-				<td><input name="id" type="radio" value="1"/></td>
+				<td><input name="id" type="radio" value="1" /></td>
 				<td>1</td>
 				<td>졸려유~~</td>
 			</tr>
 			<tr>
-				<td><input name="id" type="radio" value="2"/></td>
+				<td><input name="id" type="radio" value="2" /></td>
 				<td>2</td>
 				<td>그래유~~</td>
 			</tr>
 			<tr>
-				<td><input name="id" type="radio" value="3"/></td>
+				<td><input name="id" type="radio" value="3" /></td>
 				<td>3</td>
 				<td>뭐가 ~ 그래유~~</td>
 			</tr>
 			<tr>
-				<td><input name="id" type="radio" value="4"/></td>
+				<td><input name="id" type="radio" value="4" /></td>
 				<td>4</td>
 				<td>얼마나~ 그래유~~</td>
 			</tr>
 			<tr>
-				<td><input name="id" type="radio" value="5"/></td>
+				<td><input name="id" type="radio" value="5" /></td>
 				<td>5</td>
 				<td>정말루 ~그래유~~</td>
 			</tr>
@@ -728,49 +733,46 @@
 	</table>
 
 	<hr />
-	
+
 
 
 	<!-- 노드 바꾸기 예제-------------------------------------------------- -->
-	<input id="swap-node-button" type="button" value="노드 바꾸기"/>
+	<input id="swap-node-button" type="button" value="노드 바꾸기" />
 	<div id="node-swap-container">
-		<img src="../images/answeris.png"/><img src="../images/w3c.png"/><img src="../images/wikibook.png"/>
+		<img src="../images/answeris.png" /><img src="../images/w3c.png" /><img
+			src="../images/wikibook.png" />
 	</div>
-	
-	<hr/>
+
+	<hr />
 
 	<!-- 텍스트 노드 추가 예제--------------------------------------------------  -->
-	<input id="add-text-node-button" type="button" value="텍스트 노드 추가"/>
-	<input id="add-img-node-button" type="button" value="이미지 노드 추가"/>
-	<input id="remove-node-button" type="button" value="노드 삭제"/>
-	<div id="node-container">
-		
-	</div>
-	
-	<hr/>
+	<input id="add-text-node-button" type="button" value="텍스트 노드 추가" />
+	<input id="add-img-node-button" type="button" value="이미지 노드 추가" />
+	<input id="remove-node-button" type="button" value="노드 삭제" />
+	<div id="node-container"></div>
+
+	<hr />
 
 
 	<!-- 자식 노드 변경 예제-------------------------------------------------- -->
-	<input id="ch-node-button" type="button" value="자식노드 변경"/>
-	<div id="ch-node-container">
-		hello
-	</div>
-	
-	<hr/>
+	<input id="ch-node-button" type="button" value="자식노드 변경" />
+	<div id="ch-node-container">hello</div>
+
+	<hr />
 
 
 	<!-- 속성 변경 예제-------------------------------------------------- -->
-	<input id="img-src" type="text" value=""/>
-	<input id="ch-img-button" type="button" value="이미지 변경"/>
+	<input id="img-src" type="text" value="" />
+	<input id="ch-img-button" type="button" value="이미지 변경" />
 	<div id="img-container">
-		<img src="https://img-wishbeen.akamaized.net/plan/1437707646107_4.png"/>
+		<img src="https://img-wishbeen.akamaized.net/plan/1437707646107_4.png" />
 	</div>
-	
-	<hr/>
+
+	<hr />
 
 
 	<!-- Selector API 예제-------------------------------------------------- -->
-	<input id="ch-button1" type="button" value="배경색 변경"/>
+	<input id="ch-button1" type="button" value="배경색 변경" />
 	<div id="module1">
 		<div>1</div>
 		<div>
@@ -779,12 +781,12 @@
 		</div>
 		<div>3</div>
 	</div>
-	
-	<hr/>
+
+	<hr />
 
 
 	<!-- 노드 순회 예제-------------------------------------------------- -->
-	<input id="ch-button" type="button" value="배경색 변경"/>
+	<input id="ch-button" type="button" value="배경색 변경" />
 	<div>
 		<div>1</div>
 		<div id="p">
@@ -793,35 +795,34 @@
 		</div>
 		<div>3</div>
 	</div>
-	
-	<hr/>
+
+	<hr />
 	<!-- innerframe 예제-------------------------------------------------- -->
 	<div>
-		<input id="nav-button" type="button" value="페이지 전환"/>
-		<iframe src="notice.html" style="width:500px; height:300px;"></iframe>
+		<input id="nav-button" type="button" value="페이지 전환" />
+		<iframe src="notice.html" style="width: 500px; height: 300px;"></iframe>
 	</div>
-	
-	<hr/>
+
+	<hr />
 	<!-- open a window 예제-------------------------------------------------- -->
 	<div>
-		<input id="open-button" type="button" value="새 창 띄우기"/>
-		<input id="mov-button" type="button" value="왼쪽으로 이동"/>
-		<input id="trans-button" type="button" value="페이지 이동"/>
+		<input id="open-button" type="button" value="새 창 띄우기" /> <input
+			id="mov-button" type="button" value="왼쪽으로 이동" /> <input
+			id="trans-button" type="button" value="페이지 이동" />
 	</div>
 	<hr />
 	<!-- timer 예제-------------------------------------------------- -->
 	<p>
-	       남은시간 <span id="count-label">60</span>초
-	       <input id="count-button" type="button" value="카운트 시작" />
-   </p>
-   <hr />
+		남은시간 <span id="count-label">60</span>초 <input id="count-button"
+			type="button" value="카운트 시작" />
+	</p>
+	<hr />
 
 	<div id="ex1">
-	   <input type="text" id="x" placeholder="x값을 입력하세요" />
-	   <input type="text" id="y" placeholder="y값을 입력하세요" />
-	   =
-	   <input type="button" value="더하기" id="add-button"/>
-	   <input type="text" value="" id="result" />
+		<input type="text" id="x" placeholder="x값을 입력하세요" /> <input
+			type="text" id="y" placeholder="y값을 입력하세요" /> = <input type="button"
+			value="더하기" id="add-button" /> <input type="text" value=""
+			id="result" />
 	</div>
 
 </body>

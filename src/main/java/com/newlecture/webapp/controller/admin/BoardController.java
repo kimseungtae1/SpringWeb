@@ -157,28 +157,47 @@ public class BoardController {
 		notice.setWriterId("newlec");
 		//int row = noticeDao.insert(new Notice(title, content, writerId));
 
+		//업무명 필요
 		int row = noticeDao.insert(notice); //게시글 등록하고,,, 사용자의 이름을 가져오는것이 하나의 트랜잭션으로 묶어야 한다!!
-		memberDao.pointUp(principal.getName()); //사용자의 이름을 가져왔다! => 트랜잭션 처리 때문
+		//memberDao.pointUp(principal.getName()); //사용자의 이름을 가져왔다! => 트랜잭션 처리 때문
 		
 		//noticeFileDao.insert(new NoticeFile(null, fileName, nextId)); //id, src, noticeId
 		
 		return "redirect:../notice";
 	}
-	/*
-	@RequestMapping(value="notice/edit", method=RequestMethod.GET)
+	
+	/*@RequestMapping(value="notice/edit", method=RequestMethod.GET)
+	public String noticeEdit(
+			String id,
+			String title,
+			String content,
+			MultipartFile file, //name="file"인 녀석이 2개 이상이 될 경우... []을 이용한다.
+			HttpServletRequest request,
+			Principal principal) {
+		
+		System.out.println(id);
+		System.out.println(title);
+		System.out.println(content);
+		
+		int result = noticeDao.update(notice);
+		
+		return "admin.board.notice.edit";
+	}*/
+	
+	/*@RequestMapping(value="notice/edit", method=RequestMethod.GET)
 	public String noticeEdit() {
 		
 		return "admin.board.notice.edit";
 	}
 	
 	@RequestMapping(value="notice-edit", method=RequestMethod.POST)
-	public String noticeEdit2(String id, ){
+	public String noticeEdit2(String id ){
 		
 		
 		
 		return "admin.board.notice.detail";
-	}
-	*/
+	}*/
+	
 	
 }
 
