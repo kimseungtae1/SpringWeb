@@ -300,7 +300,6 @@
 	 */
 	
 	<!-- 노드 바꾸기 예제-------------------------------------------------- -->
-	
 	window.addEventListener("load", function() {
 		var swapNodeButton = document.querySelector("#swap-node-button");
 		var container = document.querySelector("#node-swap-container");
