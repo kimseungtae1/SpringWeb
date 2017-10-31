@@ -187,7 +187,7 @@
 		};
 	};
 	 */
-	<!-- innerframe 예제-------------------------------------------------- -->
+/* 	<!-- innerframe 예제-------------------------------------------------- --> */
 /* 	window.onload = function() {
 		var navButton = document.getElementById("nav-button");
 		var win = window.frames[0];  //프레임을 배열로 가져올수있다. 
@@ -248,7 +248,7 @@
 		};
 	}; */
 	
-	<!-- 텍스트 노드 추가  예제-------------------------------------------------- -->
+	/* <!-- 텍스트 노드 추가  예제-------------------------------------------------- --> */
 	/* 
 	window.onload = function(){
 		var addTextNodeButton = document.querySelector("#add-text-node-button");
@@ -300,7 +300,6 @@
 	 */
 	
 	<!-- 노드 바꾸기 예제-------------------------------------------------- -->
-	
 	window.addEventListener("load", function() {
 		var swapNodeButton = document.querySelector("#swap-node-button");
 		var container = document.querySelector("#node-swap-container");
