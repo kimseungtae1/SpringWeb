@@ -160,30 +160,167 @@
 			});
 	
 		//!--노드 바꾸기 예제 -->
-		window.addEventListener("load", function() {
-		   var swapNodeButton = document.querySelector("#swap-node-button");
-		   var container = document.querySelector("#swap-node-container");   
+		$(function() {
+		   var swapNodeButton = $("#swap-node-button");
+		   var container = $("#swap-node-container");   
 		   
-		   swapNodeButton.onclick = function() {
-		      var nodes = container.getElementsByTagName("img");
+		   swapNodeButton.click(function() {
+		      //var nodes = $("#swap-node-button img");
+		      var nodes = container.find("img");
 		      
-		      var node1 = nodes[0];
-		      var node2 = nodes[1];
-		      var node3 = nodes[2];
+		      var node1 = nodes.eq(0);//nodes[0];
+		      var node2 = nodes.eq(1);//nodes[1];
+		      var node3 = nodes.eq(2);//nodes[2];
 		      
 		      /* var node1 = container.firstElementChild;
 		      var node3 = container.lastElementChild; */
 		      //var oldNode = container.replaceChild(node1, node3);
 		      //container.insertBefore(node3, container.firstChild);
-		      var oldNode = container.replaceChild(node2, node3);
-		      container.insertBefore(node3, container.firstElementChild);
-		   };
+
+		      //DOM 기능을 이용한 코드
+		      //var oldNode = container.replaceChild(node2, node3);
+		      //container.insertBefore(node3, container.firstElementChild);
+		      
+		      //jquery기능을 이용한 코드
+		      //node3.replaceWith(node2);
+		      //node1.before(node3);
+		      
+		      //jQuery 스러운 코드
+		      node3
+		      .replaceWith(node2)
+		      .insertBefore(node1); //insertBefore가 있는 이유
+		      
+		      
+		   });
 		});   
 	
+		
+		//!--노드 바꾸기 예제 2 -->
+		$(function() {
+		   var moveUpButton = $("#move-up-button");
+		   //var radioButton = document.
+		   var container = $("#move-up-container");
+		   
+		   var checkedId = 0;
+		   
+		   var tbody = container.find("tbody");
+		   //var td = tbody.querySelector("tr:first-child td:last-child");
+		   //var td = tbody.firstElementChild.lastElementChild;
+		   
+		   //둘중하나
+		   //var td = tbody.children().first().children().last();
+		   var td = tbody.children(":first-child").children(":last-child");
+		      var tr = null;
+		   
+		   td.click(function(e){
+		      //e.stopPropagation();
+		      
+		      console.log("td");
+		      //e.target.style.background = "green";
+		      $(e.target).css("background", "green");
+		      
+		      
+		   },true);
+		   
+		   tbody.click(function(e){
+		            
+		      if($(e.target).nodeName == "INPUT"){
+		         
+		         //tr = e.target.parentNode.parentNode;
+		         tr = $(e.target).parentNode.parentNode;
+		            
+		      
+		      
+		      //var oldNode = container.replaceChild(tr1, tr2);
+		       //container.insertBefore(oldNode, tr3);
+		      
+		      }
+		         
+		      //console.log("tbody");
+		      //alert("target : " + e.target.nodeName + ", current : " + e.currentTarget.nodeName);
+		      //e.target.style.background = "pink";
+		      //e.target.style.background = "pink";
+		   }, true);
+		      
+		   /* var trs = container.querySelectorAll("tbody tr");
+		   
+		   for(var i=0; i<trs.length; i++)
+		      trs[i].onclick = function(e){
+		         e.target.style.background = "pink";
+		      }; */
+		   
+		   moveUpButton.click(function() {
+		                  
+		         if(tr == null)
+		            return;
+		                  
+		         var container = tr.parentNode;
+		            
+		            var bf = tr.previousElementSibling;
+		         var af = tr.nextElementSibling;
+		                  
+		         if(bf == null)
+		            bf = container.firstElementChild;
+		         
+		         container.replaceChild(tr, bf);      
+		         
+		         if(af == null)
+		            container.appendChild(bf);
+		         else
+		            container.insertBefore(bf, af);
+		   };
+		});
+		
+		
 	
 </script>
 </head>
 <body>
+	<!--노드 바꾸기 예제 2 + 이벤트 심화 : 버블링과 캡처링 -->
+   <input id="move-up-button" type="button" value="위로 옮기기" />
+   <div id="move-up-container">
+      <table border="1">
+         <thead>
+            <tr>
+               <td></td>
+               <td>코드</td>
+               <td>제목</td>
+            </tr>
+         </thead>
+         <tbody>
+            <tr>
+               <td><input name="id" type="radio" value="1" /></td>
+               <td>1</td>
+               <td>아~ 괜히 하자고 했지?</td>
+            </tr>
+            <tr>
+               <td><input name="id" type="radio" value="2" /></td>
+               <td>2</td>
+               <td>졸ㄹ려~~</td>
+            </tr>
+            <tr>
+               <td><input name="id" type="radio" value="3" /></td>
+               <td>3</td>
+               <td>아~ 졸ㄹ려~~</td>
+            </tr>
+            <tr>
+               <td><input name="id" type="radio" value="4" /></td>
+               <td>4</td>
+               <td>정말 졸ㄹ려~~</td>
+            </tr>
+            <tr>
+               <td><input name="id" type="radio" value="5" /></td>
+               <td>5</td>
+               <td>미쳐버리게 졸ㄹ려~~</td>
+            </tr>
+         </tbody>
+      </table>
+
+      <img src="../images/w3c.png" /> <img src="../images/microsoft.png" />
+   </div>
+   <hr />
+
+
 	<!--노드 바꾸기 예제 -->
    <input id="swap-node-button" type="button" value="노드 바꾸기" />
    <div id="swap-node-container">
