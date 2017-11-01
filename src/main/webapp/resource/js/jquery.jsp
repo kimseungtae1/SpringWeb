@@ -196,6 +196,59 @@
 	
 		
 		//!--노드 바꾸기 예제 2 -->
+		/* $(function() {
+		   var moveUpButton = $("#move-up-button");
+		   //var radioButton = document.
+		   var container = $("#move-up-container");
+		   
+		   var checkedId = 0;
+		   
+		   var tbody = container.find("tbody");
+		   //var td = tbody.querySelector("tr:first-child td:last-child");
+		   var td = tbody.children().first().children().last();
+		      var tr = null;
+		   
+		   td.click(function(e){
+		      //e.stopPropagation();
+		      
+		      console.log("td");
+		      e.target.style.background = "green";
+		      
+		      
+		   });
+		   
+		   tbody.click(function(e){
+		            
+		      if($(e.target).nodeName == "INPUT"){
+		         
+		         tr = $(e.target).parent().parent();
+		      
+		      }
+		      
+		   });
+		  
+		   moveUpButton.click(function() {
+
+		         if(tr == null)
+		            return;
+		                  
+		         var container = tr.parent();
+		            
+		            var bf = tr.prev();
+		         	var af = tr.next();
+		                  
+		         if(bf == null)
+		            bf = container.children().first();
+		         
+		         bf.replaceWith(tr);      
+		         
+		         if(af.lenfth == 0)
+		            container.append(bf);
+		         else
+		        	 bf.insertBefore(af);
+		   });
+		}); */
+		
 		$(function() {
 		   var moveUpButton = $("#move-up-button");
 		   //var radioButton = document.
@@ -213,6 +266,8 @@
 		      var tr = null;
 		   
 		   td.click(function(e){
+			   
+		   //alert("bb");
 		      //e.stopPropagation();
 		      
 		      console.log("td");
@@ -220,62 +275,127 @@
 		      $(e.target).css("background", "green");
 		      
 		      
-		   },true);
+		   });
 		   
 		   tbody.click(function(e){
-		            
+			   //alert("cc");    
 		      if($(e.target).nodeName == "INPUT"){
 		         
 		         //tr = e.target.parentNode.parentNode;
-		         tr = $(e.target).parentNode.parentNode;
-		            
-		      
-		      
-		      //var oldNode = container.replaceChild(tr1, tr2);
-		       //container.insertBefore(oldNode, tr3);
+		         tr = $(e.target).parent().parent();
 		      
 		      }
-		         
-		      //console.log("tbody");
-		      //alert("target : " + e.target.nodeName + ", current : " + e.currentTarget.nodeName);
-		      //e.target.style.background = "pink";
-		      //e.target.style.background = "pink";
-		   }, true);
-		      
-		   /* var trs = container.querySelectorAll("tbody tr");
-		   
-		   for(var i=0; i<trs.length; i++)
-		      trs[i].onclick = function(e){
-		         e.target.style.background = "pink";
-		      }; */
+		   });
 		   
 		   moveUpButton.click(function() {
-		                  
+		         //alert("aa");
 		         if(tr == null)
 		            return;
 		                  
-		         var container = tr.parentNode;
+		         var container = tr.parent();
 		            
-		            var bf = tr.previousElementSibling;
-		         var af = tr.nextElementSibling;
+	             var bf = tr.prev();
+	         	 var af = tr.next();
 		                  
 		         if(bf == null)
-		            bf = container.firstElementChild;
+		            bf = container.children().first();
 		         
-		         container.replaceChild(tr, bf);      
-		         
-		         if(af == null)
-		            container.appendChild(bf);
+		         //container.replaceChild(tr, bf);
+		     	 bf.replaceWith(tr);
+		          
+		     	 //if(af == null)
+		         if(af.length == 0)
+		            //container.appendChild(bf);
+		         	container.append(bf);
 		         else
-		            container.insertBefore(bf, af);
-		   };
+		            //container.insertBefore(bf, af);
+		         	bf.insertBefore(af);
+		   });
 		});
+
 		
+		/* --- 엘리먼트의 기본 행위 막기 ------------------------------------------------- */
+		   $(function(){
+		      var titleText = $("form input[name]");
+		      var submitButton = $("form input[type='submit']");
+		      var cancelButton = $("form a");
+		      
+		      submitButton.click(function(e){
+		         if(titleText.val() == ""){
+		            alert("제목을 입력하세요.");
+		            e.preventDefault();
+		         }
+		      });
+		      
+		      cancelButton.click(function(e){
+		         if(titleText.val() != ""){
+		            if(!confirm("작성중이던 입력을 취소하시겠습니까?"))
+		               e.preventDefault();
+		         }
+		      });
+		   });
+		
+		
+		   /* --- 노드복제 예제----------------------------------------------------------------- */
+
+		   $(function(){   
+		      var cloneButton = $("#ex-clone input[value='단순복제']");
+		      var tbody = $("#ex-clone tbody");
+		         
+		      cloneButton.click(function(e){
+		         /* var tr = tbody.querySelector("tr");
+		         
+		         var clone = tr.cloneNode(true);
+		         tbody.appendChild(clone); */
+		         
+		    	  tbody
+		    	  .find("tr")
+		    	  .clone(true)
+		    	  .appendTo(tbody);
+		         
+		      });
+		      
+		   });
 		
 	
 </script>
 </head>
 <body>
+	<!--노드복제 예제 -->
+   <div id="ex-clone">
+      <div>
+         <input type="button" value="단순복제" />
+      </div>
+      <div id="clone-container">
+         <table border="1">
+            <thead>
+               <tr>
+                  <td></td>
+                  <td>코드</td>
+                  <td>제목</td>
+               </tr>
+            </thead>
+            <tbody>
+               <tr>
+                  <td><input name="id" type="radio" value="1" /></td>
+                  <td>1</td>
+                  <td>아~ 괜히 하자고 했지?</td>
+               </tr>            
+            </tbody>
+         </table>
+      </div>
+   </div>
+   <hr />
+
+
+	<!--기본 행위 막기 예제 -->
+   <form>
+      <input type="text" name="title" /><br /> <input type="submit"
+         value="전송" /> <a href="">취소</a>
+   </form>
+   <hr />
+
+
 	<!--노드 바꾸기 예제 2 + 이벤트 심화 : 버블링과 캡처링 -->
    <input id="move-up-button" type="button" value="위로 옮기기" />
    <div id="move-up-container">

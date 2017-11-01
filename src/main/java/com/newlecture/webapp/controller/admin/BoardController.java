@@ -161,7 +161,7 @@ public class BoardController {
 		int row = noticeDao.insert(notice); //게시글 등록하고,,, 사용자의 이름을 가져오는것이 하나의 트랜잭션으로 묶어야 한다!!
 		//memberDao.pointUp(principal.getName()); //사용자의 이름을 가져왔다! => 트랜잭션 처리 때문
 		
-		//noticeFileDao.insert(new NoticeFile(null, fileName, nextId)); //id, src, noticeId
+		noticeFileDao.insert(new NoticeFile(null, fileName, nextId)); //id, src, noticeId
 		
 		return "redirect:../notice";
 	}

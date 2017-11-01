@@ -523,10 +523,10 @@
 			var files = JSON.parse(e.target.responseText);
 				
 			for(var i = 0;i<files.length; i++){
-			var li = document.createElement("li");
-			li.textContent = files[i];
-			fileViewer.appendChild(li);
-		}
+				var li = document.createElement("li");
+				li.textContent = files[i];
+				fileViewer.appendChild(li);
+			}
 			
 
 		};
