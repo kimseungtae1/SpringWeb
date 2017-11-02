@@ -358,9 +358,140 @@
 		   });
 		
 	
+		   /*---------------Template 태그를 이용한 노드복제 and Ajax 요청 예제 -----------------*/
+		   $(function(){   
+			   var cloneButton = $("#ex2-clone input[value='단순복제']");
+			   var ajaxButton = $("#ex2-clone input[value='Ajax요청']");
+			   var tbody = $("#ex2-clone tbody");
+			   var template = $("#ex2-clone template");
+			   var container = $("#ex2-clone div:first-child");
+			   
+			   var data = [
+			      {id:"1", title:"자바스크립트 야호~", writerId:"newlec"},
+			      {id:"2", title:"자바도 야호~", writerId:"dragon"},
+			      {id:"3", title:"둘다 ~", writerId:"wa~~~"}
+			   ];
+			   
+			 //1.복제하기
+			   cloneButton.click(function(e){
+				   
+				//jQuery 객체의 필드와 속성
+				//attr("checked"); ==> checked가 나옴
+				//prop("checked"); ==> true가 나옴
+			   
+			     //alert('content' in template.get(0))
+			      // 현재 브라우저가 template 태그를 지원하는지에 대한 확인
+			      if('content' in template.get(0)){
+			         // 1. template의 content에 값을 설정하고 노드를 복제 하는 경우
+			         /* var tds = template.content.querySelectorAll("td");
+			         tds[0].appendChild(document.createTextNode("1"));
+			         tds[1].textContent = "test title";
+			         tds[2].textContent = "newlec";
+			         
+			         var clone = document.importNode(template.content, true); */         
+			         
+			         // 2. 복제를 한 후에 content를 설정하는 경우         
+			         for(var i=0; i<data.length;i++)
+			         {
+			        	 
+			         	//jquery에는 없는 기능이기 때문에 이부분만 dom을 사용한다
+			            var clone = $(document.importNode(template.prop("content"), true));
+			            //var clone = template.clone(true);
+			            
+			            var tds = clone.find("td");
+			            //tds.eq(0).html(tds.eq(0).html() + data[i].id);
+			            tds.eq(0).append(data[i].id);
+			            tds.eq(1).text(data[i].title);
+			            tds.eq(2).text(data[i].writerId);
+			            
+			            // 복제된 clone(tr)을 노드 트리에 추가
+			            tbody.append(clone);         
+			         }
+			         
+			      }
+			      
+			      /* var obj = {kor:30, eng:40, math:50};
+			      
+			      obj.com = 60;
+			      
+			      if( 'com' in obj)
+			         alert(obj.kor + obj.com); */      
+			   });
+			   
+			   
+				 //2.Ajax 요청하기
+				   ajaxButton.click(function(e){
+				      /* 2. 비동기형으로 문서를 요청한 방식 */
+				      var xhr = new XMLHttpRequest();
+				      /* xhr.onreadystatechange = function(e){
+				         if(xhr.readyState == 4)
+				            data = eval(xhr.responseText);
+				      }; */
+				      xhr.onload = function(){
+				         //alert("tt");
+				         data = JSON.parse(xhr.responseText);
+				         // 2. ajax icon 제거
+				         container.removeChild(container.lastChild);
+				      };
+				      xhr.onerror = function(e){
+				         alert("예기치 못한 오류가 발생하였습니다.");
+				      };
+				      xhr.open("GET", "../../customer/notice-ajax", true);
+				      xhr.send();   
+				      // 1. ajax icon 추가
+				      var img = document.createElement("img");
+				      img.src = "../images/ajax-loader.gif";
+				      container.appendChild(img);
+				      
+				      /* 1. 동기형으로 문서를 요청한 방식 */
+				      /* var xhr = new XMLHttpRequest();
+				      xhr.open("GET", "../../customer/notice-ajax", false);
+				      xhr.send();
+				      data = eval(xhr.responseText); */      
+				      
+				      
+				   });
+				   
+			 
+			 
+			   
+			   
+			});
+		   
+		   
 </script>
 </head>
 <body>
+	<!--Template 태그를 이용한 노드복제 and Ajax 요청 예제 -->
+   <div id="ex2-clone">
+      <div>
+         <input type="button" value="단순복제" />
+         <input type="button" value="Ajax요청" />
+      </div>
+      <div id="clone-container">
+         <table border="1">
+            <thead>
+               <tr>
+                  <td></td>
+                  <td>코드</td>
+                  <td>제목</td>
+               </tr>
+            </thead>
+            <tbody>            
+            </tbody>
+         </table>         
+         <template>
+            <tr>
+               <td><input name="id" type="radio" value="1" /></td>
+               <td></td>
+               <td></td>
+            </tr>   
+         </template>
+      </div>
+   </div>
+   <hr />
+	
+
 	<!--노드복제 예제 -->
    <div id="ex-clone">
       <div>

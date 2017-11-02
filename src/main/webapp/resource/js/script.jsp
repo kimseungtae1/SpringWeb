@@ -459,6 +459,9 @@
 			xhr.open("GET", "../../customer/notice-ajax", true);
 			xhr.send();
 			
+			
+			
+			
 			//1. ajax icon 추가
 			var img = document.createElement("img");
 			img.src = "../images/ajax-loader.gif";
@@ -527,7 +530,6 @@
 				li.textContent = files[i];
 				fileViewer.appendChild(li);
 			}
-			
 
 		};
 		
