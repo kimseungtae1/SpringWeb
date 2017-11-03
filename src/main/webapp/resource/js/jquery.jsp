@@ -421,12 +421,44 @@
 			   
 				 //2.Ajax 요청하기
 				   ajaxButton.click(function(e){
-				      /* 2. 비동기형으로 문서를 요청한 방식 */
+					   //3. jQuery.get() 으로 문서를 요청한 방식
+					   /* $.get("../../customer/notice-ajax",function(data){
+							//alert(data);
+							var json = JSON.parse(data);
+						   alert(json[0].writerName);
+					   }); */
+					   
+					   //json만 쓴다는 전제조건하에 인코딩방식을 초기설정을 변경한다.
+					   /* $
+					   .ajaxSetup({	
+						   scriptCharset:"utf-8",
+						   dataType:"json",
+						   contentType : "application/x-www-form-urlencoded; charset=UTF-8"
+					   });		   
+					    */
+					   //4. jQuery.get()을 jQuery답게 표현
+					   $
+					   .get("../../customer/notice-ajax")
+					   .done(function(data){
+						  alert(data);
+						   //console.log("공통부분");
+					   })
+					   .fail(function(){
+						   //console.log("공통부분");
+					   })
+					   .always(function(){
+						   console.log("공통부분");  
+					   });
+					   
+					 
+						   
+				   
+				      /*// 2. 비동기형으로 문서를 요청한 방식 
 				      var xhr = new XMLHttpRequest();
-				      /* xhr.onreadystatechange = function(e){
+				       xhr.onreadystatechange = function(e){
 				         if(xhr.readyState == 4)
 				            data = eval(xhr.responseText);
-				      }; */
+				      }; 
 				      xhr.onload = function(){
 				         //alert("tt");
 				         data = JSON.parse(xhr.responseText);
@@ -443,12 +475,12 @@
 				      img.src = "../images/ajax-loader.gif";
 				      container.appendChild(img);
 				      
-				      /* 1. 동기형으로 문서를 요청한 방식 */
-				      /* var xhr = new XMLHttpRequest();
+				      //1. 동기형으로 문서를 요청한 방식
+				      var xhr = new XMLHttpRequest();
 				      xhr.open("GET", "../../customer/notice-ajax", false);
 				      xhr.send();
-				      data = eval(xhr.responseText); */      
-				      
+				      data = eval(xhr.responseText);      
+				       */
 				      
 				   });
 				   
