@@ -196,6 +196,59 @@
 	
 		
 		//!--노드 바꾸기 예제 2 -->
+		/* $(function() {
+		   var moveUpButton = $("#move-up-button");
+		   //var radioButton = document.
+		   var container = $("#move-up-container");
+		   
+		   var checkedId = 0;
+		   
+		   var tbody = container.find("tbody");
+		   //var td = tbody.querySelector("tr:first-child td:last-child");
+		   var td = tbody.children().first().children().last();
+		      var tr = null;
+		   
+		   td.click(function(e){
+		      //e.stopPropagation();
+		      
+		      console.log("td");
+		      e.target.style.background = "green";
+		      
+		      
+		   });
+		   
+		   tbody.click(function(e){
+		            
+		      if($(e.target).nodeName == "INPUT"){
+		         
+		         tr = $(e.target).parent().parent();
+		      
+		      }
+		      
+		   });
+		  
+		   moveUpButton.click(function() {
+
+		         if(tr == null)
+		            return;
+		                  
+		         var container = tr.parent();
+		            
+		            var bf = tr.prev();
+		         	var af = tr.next();
+		                  
+		         if(bf == null)
+		            bf = container.children().first();
+		         
+		         bf.replaceWith(tr);      
+		         
+		         if(af.lenfth == 0)
+		            container.append(bf);
+		         else
+		        	 bf.insertBefore(af);
+		   });
+		}); */
+		
 		$(function() {
 		   var moveUpButton = $("#move-up-button");
 		   //var radioButton = document.
@@ -213,6 +266,8 @@
 		      var tr = null;
 		   
 		   td.click(function(e){
+			   
+		   //alert("bb");
 		      //e.stopPropagation();
 		      
 		      console.log("td");
@@ -220,62 +275,290 @@
 		      $(e.target).css("background", "green");
 		      
 		      
-		   },true);
+		   });
 		   
 		   tbody.click(function(e){
-		            
+			   //alert("cc");    
 		      if($(e.target).nodeName == "INPUT"){
 		         
 		         //tr = e.target.parentNode.parentNode;
-		         tr = $(e.target).parentNode.parentNode;
-		            
-		      
-		      
-		      //var oldNode = container.replaceChild(tr1, tr2);
-		       //container.insertBefore(oldNode, tr3);
+		         tr = $(e.target).parent().parent();
 		      
 		      }
-		         
-		      //console.log("tbody");
-		      //alert("target : " + e.target.nodeName + ", current : " + e.currentTarget.nodeName);
-		      //e.target.style.background = "pink";
-		      //e.target.style.background = "pink";
-		   }, true);
-		      
-		   /* var trs = container.querySelectorAll("tbody tr");
-		   
-		   for(var i=0; i<trs.length; i++)
-		      trs[i].onclick = function(e){
-		         e.target.style.background = "pink";
-		      }; */
+		   });
 		   
 		   moveUpButton.click(function() {
-		                  
+		         //alert("aa");
 		         if(tr == null)
 		            return;
 		                  
-		         var container = tr.parentNode;
+		         var container = tr.parent();
 		            
-		            var bf = tr.previousElementSibling;
-		         var af = tr.nextElementSibling;
+	             var bf = tr.prev();
+	         	 var af = tr.next();
 		                  
 		         if(bf == null)
-		            bf = container.firstElementChild;
+		            bf = container.children().first();
 		         
-		         container.replaceChild(tr, bf);      
-		         
-		         if(af == null)
-		            container.appendChild(bf);
+		         //container.replaceChild(tr, bf);
+		     	 bf.replaceWith(tr);
+		          
+		     	 //if(af == null)
+		         if(af.length == 0)
+		            //container.appendChild(bf);
+		         	container.append(bf);
 		         else
-		            container.insertBefore(bf, af);
-		   };
+		            //container.insertBefore(bf, af);
+		         	bf.insertBefore(af);
+		   });
 		});
+
 		
+		/* --- 엘리먼트의 기본 행위 막기 ------------------------------------------------- */
+		   $(function(){
+		      var titleText = $("form input[name]");
+		      var submitButton = $("form input[type='submit']");
+		      var cancelButton = $("form a");
+		      
+		      submitButton.click(function(e){
+		         if(titleText.val() == ""){
+		            alert("제목을 입력하세요.");
+		            e.preventDefault();
+		         }
+		      });
+		      
+		      cancelButton.click(function(e){
+		         if(titleText.val() != ""){
+		            if(!confirm("작성중이던 입력을 취소하시겠습니까?"))
+		               e.preventDefault();
+		         }
+		      });
+		   });
+		
+		
+		   /* --- 노드복제 예제----------------------------------------------------------------- */
+
+		   $(function(){   
+		      var cloneButton = $("#ex-clone input[value='단순복제']");
+		      var tbody = $("#ex-clone tbody");
+		         
+		      cloneButton.click(function(e){
+		         /* var tr = tbody.querySelector("tr");
+		         
+		         var clone = tr.cloneNode(true);
+		         tbody.appendChild(clone); */
+		         
+		    	  tbody
+		    	  .find("tr")
+		    	  .clone(true)
+		    	  .appendTo(tbody);
+		         
+		      });
+		      
+		   });
 		
 	
+		   /*---------------Template 태그를 이용한 노드복제 and Ajax 요청 예제 -----------------*/
+		   $(function(){   
+			   var cloneButton = $("#ex2-clone input[value='단순복제']");
+			   var ajaxButton = $("#ex2-clone input[value='Ajax요청']");
+			   var tbody = $("#ex2-clone tbody");
+			   var template = $("#ex2-clone template");
+			   var container = $("#ex2-clone div:first-child");
+			   
+			   var data = [
+			      {id:"1", title:"자바스크립트 야호~", writerId:"newlec"},
+			      {id:"2", title:"자바도 야호~", writerId:"dragon"},
+			      {id:"3", title:"둘다 ~", writerId:"wa~~~"}
+			   ];
+			   
+			 //1.복제하기
+			   cloneButton.click(function(e){
+				   
+				//jQuery 객체의 필드와 속성
+				//attr("checked"); ==> checked가 나옴
+				//prop("checked"); ==> true가 나옴
+			   
+			     //alert('content' in template.get(0))
+			      // 현재 브라우저가 template 태그를 지원하는지에 대한 확인
+			      if('content' in template.get(0)){
+			         // 1. template의 content에 값을 설정하고 노드를 복제 하는 경우
+			         /* var tds = template.content.querySelectorAll("td");
+			         tds[0].appendChild(document.createTextNode("1"));
+			         tds[1].textContent = "test title";
+			         tds[2].textContent = "newlec";
+			         
+			         var clone = document.importNode(template.content, true); */         
+			         
+			         // 2. 복제를 한 후에 content를 설정하는 경우         
+			         for(var i=0; i<data.length;i++)
+			         {
+			        	 
+			         	//jquery에는 없는 기능이기 때문에 이부분만 dom을 사용한다
+			            var clone = $(document.importNode(template.prop("content"), true));
+			            //var clone = template.clone(true);
+			            
+			            var tds = clone.find("td");
+			            //tds.eq(0).html(tds.eq(0).html() + data[i].id);
+			            tds.eq(0).append(data[i].id);
+			            tds.eq(1).text(data[i].title);
+			            tds.eq(2).text(data[i].writerId);
+			            
+			            // 복제된 clone(tr)을 노드 트리에 추가
+			            tbody.append(clone);         
+			         }
+			         
+			      }
+			      
+			      /* var obj = {kor:30, eng:40, math:50};
+			      
+			      obj.com = 60;
+			      
+			      if( 'com' in obj)
+			         alert(obj.kor + obj.com); */      
+			   });
+			   
+			   
+				 //2.Ajax 요청하기
+				   ajaxButton.click(function(e){
+					   //3. jQuery.get() 으로 문서를 요청한 방식
+					   /* $.get("../../customer/notice-ajax",function(data){
+							//alert(data);
+							var json = JSON.parse(data);
+						   alert(json[0].writerName);
+					   }); */
+					   
+					   //json만 쓴다는 전제조건하에 인코딩방식을 초기설정을 변경한다.
+					   /* $
+					   .ajaxSetup({	
+						   scriptCharset:"utf-8",
+						   dataType:"json",
+						   contentType : "application/x-www-form-urlencoded; charset=UTF-8"
+					   });		   
+					    */
+					   //4. jQuery.get()을 jQuery답게 표현
+					   $
+					   .get("../../customer/notice-ajax")
+					   .done(function(data){
+						  alert(data);
+						   //console.log("공통부분");
+					   })
+					   .fail(function(){
+						   //console.log("공통부분");
+					   })
+					   .always(function(){
+						   console.log("공통부분");  
+					   });
+					   
+					 
+						   
+				   
+				      /*// 2. 비동기형으로 문서를 요청한 방식 
+				      var xhr = new XMLHttpRequest();
+				       xhr.onreadystatechange = function(e){
+				         if(xhr.readyState == 4)
+				            data = eval(xhr.responseText);
+				      }; 
+				      xhr.onload = function(){
+				         //alert("tt");
+				         data = JSON.parse(xhr.responseText);
+				         // 2. ajax icon 제거
+				         container.removeChild(container.lastChild);
+				      };
+				      xhr.onerror = function(e){
+				         alert("예기치 못한 오류가 발생하였습니다.");
+				      };
+				      xhr.open("GET", "../../customer/notice-ajax", true);
+				      xhr.send();   
+				      // 1. ajax icon 추가
+				      var img = document.createElement("img");
+				      img.src = "../images/ajax-loader.gif";
+				      container.appendChild(img);
+				      
+				      //1. 동기형으로 문서를 요청한 방식
+				      var xhr = new XMLHttpRequest();
+				      xhr.open("GET", "../../customer/notice-ajax", false);
+				      xhr.send();
+				      data = eval(xhr.responseText);      
+				       */
+				      
+				   });
+				   
+			 
+			 
+			   
+			   
+			});
+		   
+		   
 </script>
 </head>
 <body>
+	<!--Template 태그를 이용한 노드복제 and Ajax 요청 예제 -->
+   <div id="ex2-clone">
+      <div>
+         <input type="button" value="단순복제" />
+         <input type="button" value="Ajax요청" />
+      </div>
+      <div id="clone-container">
+         <table border="1">
+            <thead>
+               <tr>
+                  <td></td>
+                  <td>코드</td>
+                  <td>제목</td>
+               </tr>
+            </thead>
+            <tbody>            
+            </tbody>
+         </table>         
+         <template>
+            <tr>
+               <td><input name="id" type="radio" value="1" /></td>
+               <td></td>
+               <td></td>
+            </tr>   
+         </template>
+      </div>
+   </div>
+   <hr />
+	
+
+	<!--노드복제 예제 -->
+   <div id="ex-clone">
+      <div>
+         <input type="button" value="단순복제" />
+      </div>
+      <div id="clone-container">
+         <table border="1">
+            <thead>
+               <tr>
+                  <td></td>
+                  <td>코드</td>
+                  <td>제목</td>
+               </tr>
+            </thead>
+            <tbody>
+               <tr>
+                  <td><input name="id" type="radio" value="1" /></td>
+                  <td>1</td>
+                  <td>아~ 괜히 하자고 했지?</td>
+               </tr>            
+            </tbody>
+         </table>
+      </div>
+   </div>
+   <hr />
+
+
+	<!--기본 행위 막기 예제 -->
+   <form>
+      <input type="text" name="title" /><br /> <input type="submit"
+         value="전송" /> <a href="">취소</a>
+   </form>
+   <hr />
+
+
 	<!--노드 바꾸기 예제 2 + 이벤트 심화 : 버블링과 캡처링 -->
    <input id="move-up-button" type="button" value="위로 옮기기" />
    <div id="move-up-container">
