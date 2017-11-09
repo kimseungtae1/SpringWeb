@@ -33,10 +33,10 @@
 		
 		ex1ToolButton.onclick = function(e){
 			
-			//2. 애니메이션을 
+			//2. 애니메이션을 animatie 함수로 리팩토링 
 			//animate(item , 300);
 			
-			//1. 직접 변화를 
+			//1.  일일히 개별적으로 작성한 애니메이션
 			/* if(timer == null)
 				timer = setInterval(function() {
 					
@@ -89,6 +89,26 @@
 	//transform : 한번에 바꾸는 방법
 	//transition : 점진적으로 바꿔주는 방법
 </script>
+<style>
+   .item1{
+      width: 100px; 
+      height: 100px; 
+      background: yellow;
+      transition-duration: 1s;
+      tarnsition-property: width, opacity;
+      tarnsition-timing-function: cubic-bezier(1.000, 0, 0.000, 1);
+      
+      /* transition-duration: 시간설정
+      transition-delay: 지연시킴
+      tarnsition-property: 속성 한정시킴
+      tarnsition-timing-function: https://matthewlein.com/tools/ceaser */
+   }
+   /* .item1:hover{
+      opacity: 0.2;
+      width: 200px;
+      height: 200px;
+   } */
+</style>
 </head>
 <body>
 	<!-- 1. 너비를 변경하는 애니메이션 -->
@@ -96,8 +116,17 @@
 		<input type="button" value="너비늘리기"/>
 	</div>
 	<div id="ex1-box" style="width: 500px; height: 300px; background: black;">
-		<div class="item1" style="transform:rotate(45deg); width:100px; height: 100px; background: white;">
+		<div class="item1">
 		</div>
+		<div class="item1">
+		</div>
+		<div class="item1">
+		</div>
+		<div class="item1">
+		</div>
+		<div class="item1">
+		</div>
+		
 	</div>
 	<hr/>
 </body>
