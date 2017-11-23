@@ -77,13 +77,10 @@ public class SpringNoticeDao implements NoticeDao {
 					, notice.getContent()
 					, notice.getWriterId());
 			
-			
 		result += template.update(sql1
 					, notice.getWriterId());
-			
 
 		return result;
-	
 	}
 	
 
